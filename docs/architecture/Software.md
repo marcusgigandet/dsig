@@ -21,7 +21,7 @@ swimlane-beta TB
         Decryption
         BACKEND["`**Web Backend**`"]
 
-        Decryption -- Images --> BACKEND
+        Decryption -- Decrypted images --> BACKEND
     end
 
     subgraph MBL["Mobile Device"]
