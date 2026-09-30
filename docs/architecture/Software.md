@@ -3,11 +3,11 @@
 ```mermaid
 swimlane-beta LR
     subgraph Pi_1["Raspberry Pi Private Server"]
-        ImageDetection
+        IMAGE_DETECTION["Image Detection"]
         Encryption
         UART_1["UART"]
 
-        ImageDetection --> Encryption --> UART_1
+        IMAGE_DETECTION --> Encryption --> UART_1
     end
 
     subgraph ESP_1["ESP-32 Transmitter"]
