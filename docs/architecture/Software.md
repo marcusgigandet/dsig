@@ -26,17 +26,22 @@ swimlane-beta LR
 
     subgraph Pi_2["Raspberry Pi Rebel Server"]
         UART_4["UART"]
-        BACK["Web backend"]
+        BACKEND["`**Web Backend**`"]
         
         UART_3 <--> UART_4
         UART_4 --> Decryption
+
+        Decryption -- Images --> BACKEND
     end
 
     subgraph MBL["Mobile Device"]
         BROWSE["Web browser"]
-        AUTH["Authentication App"]
+        AUTH["`**Authentication App**`"]
 
-        BACK -- Web page code --> BROWSE
-        BROWSE --> BACK
+        BACKEND -- Web page source code --> BROWSE
+        BROWSE -- HTTP Request --> BACKEND
+
+        BROWSE -- Secret key --> AUTH
+        AUTH -- TOTP --> BROWSE
     end
 ```
