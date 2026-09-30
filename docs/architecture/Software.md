@@ -6,7 +6,7 @@ swimlane-beta TB
         IMAGE_DETECTION["Image Detection"]
         Encryption
 
-        IMAGE_DETECTION --> Encryption
+        IMAGE_DETECTION -- Cropped images --> Encryption
     end
 
     subgraph ESP_1["ESP-32 Transmitter"]
@@ -36,6 +36,6 @@ swimlane-beta TB
     TX <-. ESP-NOW .-> RX
     RX <-- UART --> Decryption
 
-    BACKEND -- Web page source code --> BROWSE
-    BROWSE -- HTTP Request --> BACKEND
+    BACKEND -. Web page source code .-> BROWSE
+    BROWSE -. HTTP Request .-> BACKEND
 ```
