@@ -3,9 +3,11 @@
 ```mermaid
 swimlane-beta TB
     subgraph Pi_1["Raspberry Pi Private Server"]
+        MEDIA["USB Drive"]
         IMAGE_DETECTION["Image Detection"]
         Encryption
-
+        
+        MEDIA -- Loaded images --> IMAGE_DETECTION
         IMAGE_DETECTION -- Cropped images --> Encryption
     end
 
