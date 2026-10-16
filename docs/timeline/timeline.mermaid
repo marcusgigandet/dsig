@@ -1,0 +1,33 @@
+%%{init: {
+  "gantt": {
+    "leftPadding": 110,
+    "topPadding": 45,
+    "barGap": 5,
+    "fontSize": 10
+  }
+}}%%
+gantt
+  title Intelligence Gathering Roadmap
+  dateFormat YYYY-MM-DD
+  axisFormat %d/%m
+
+  Section Communication
+  Build System for ESP32 and Raspberry Pi: a1, 2027-01-4, 4d
+  UART Communication between ESP32 and Raspberry Pi: a2, 2027-01-25, 12d
+  ESP-NOW Communication between ESP32s: a3, 2027-02-08, 2027-03-12
+  Packet Serialization and Deserialization: a4, 2027-01-11, 2027-01-22
+  CRC Calculation and Verification: a5, 2027-01-11, 2027-01-15
+  GPIO and Software Logic for Radio Module: a6, 2027-01-25, 2027-02-05
+  Image Encryption and Decryption: a9, 2027-02-08, 2027-02-22
+
+  Section Image Processing
+  Red Circle Detection: a7, 2027-01-04, 2027-01-15
+  Image Cropping: a8, 2027-01-13, 2027-01-20
+  
+  Section Web Server
+  Barebones Web Server: b1, 2027-01-18, 2027-02-01
+  Real-Time Image Table: b2, 2027-01-25, 2027-02-08
+  Username + Password Session Management: b3, 2027-02-01, 2027-02-15
+  Two-Factor Authentication: b4, 2027-02-08, 2027-02-22
+  Authentication-Gated Video: b5, 2027-02-15, 2027-03-01
+  Deploy Web Server to Raspberry Pi: b6, 2027-03-01, 2027-03-15
