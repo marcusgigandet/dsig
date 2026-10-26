@@ -42,56 +42,57 @@ sequenceDiagram
     participant PI_RX as Raspberry Pi 2
 
     Note over PI_TX: Data Preparation
-    PI_TX->>PI_TX: Encrypt data
-    PI_TX->>ESP_TX: Send binary data over UART
+    PI_TX->>PI_TX: Calculate image checksum
+    PI_TX->>PI_TX: Encrypt and segment image data
 
-    Note over ESP_TX: Packet Preparation
-    ESP_TX->>ESP_TX: Receive binary data
-    ESP_TX->>ESP_TX: Split into sequential packets
-    ESP_TX->>ESP_TX: Add checksum (CRC-32)
+    Note over PI_TX,ESP_TX: UART Transfer
 
-    Note over ESP_TX,ESP_RX: ESP-NOW Transmission Phase
-    loop For each packet
-        ESP_TX->>RF: Transmit packet via ESP-NOW
+    loop While data remains
+        ESP_TX->>PI_TX: Advertise available buffer capacity
+        PI_TX->>ESP_TX: Send bounded batch of UART frames
+        Note over PI_TX,ESP_TX: Final data frame carries EOI flag
+        ESP_TX->>ESP_TX: Validate UART CRC
+        ESP_TX->>ESP_TX: Build RF packets with CRC
+    end
+    
+    Note over ESP_TX,ESP_RX: ESP-NOW Transmission
+    loop For each queued packet
+        ESP_TX->>RF: Transmit packet
         RF->>ESP_RX: Deliver packet
 
-        alt Checksum valid
-            ESP_RX->>ESP_RX: Verify checksum (CRC-32)
-            ESP_RX->>ESP_RX: Check sequence number
-            ESP_RX->>ESP_RX: Buffer packet
-            ESP_RX->>RF: Transmit ACK
-            RF->>ESP_TX: Deliver ACK
-            ESP_TX->>ESP_TX: Remove packet from retransmission queue
+        ESP_RX->>ESP_RX: Verify CRC-32
 
-            alt Missing packets detected
-                ESP_RX->>RF: Transmit NACKs
-                RF->>ESP_TX: Deliver NACKs
-                ESP_TX->>RF: Retransmit missing packets
-                RF->>ESP_RX: Deliver retransmitted packets
+        alt Checksum valid
+            ESP_RX->>ESP_RX: Check sequence number
+
+            alt New packet
+                ESP_RX->>PI_RX: Forward packet over UART
+                Note over ESP_RX,PI_RX: Final data frame carries EOI flag
+                PI_RX->>PI_RX: Validate UART CRC
+                PI_RX->>PI_RX: Store by sequence number
+            end
+
+            ESP_RX->>RF: Send ACK
+            RF->>ESP_TX: Deliver ACK
+            ESP_TX->>ESP_TX: Remove from retransmission queue
+
+            opt Missing sequence detected
+                ESP_RX->>RF: Send NACK for missing packet
+                RF->>ESP_TX: Deliver NACK
             end
 
         else Checksum invalid
-            ESP_RX->>RF: Transmit NACK
+            ESP_RX->>RF: Send NACK
             RF->>ESP_TX: Deliver NACK
-            ESP_TX->>RF: Retransmit packet
-            RF->>ESP_RX: Deliver retransmitted packet
+        end
+
+        opt NACK received or ACK timeout
+            ESP_TX->>RF: Retransmit affected packet
         end
     end
 
-    Note over ESP_TX,ESP_RX: Timeout Handling
-    alt ACK timeout expires
-        ESP_TX->>RF: Retransmit missing packets
-        RF->>ESP_RX: Deliver retransmission
-    end
-
-    Note over ESP_RX: Data Reconstruction
-    ESP_RX->>ESP_RX: Verify all packets received
-    ESP_RX->>ESP_RX: Reorder packets by sequence number
-    ESP_RX->>ESP_RX: Reconstruct original encrypted data
-    ESP_RX->>PI_RX: Send encrypted data over UART
-
-    Note over PI_RX: Data Processing
-    PI_RX->>PI_RX: Decrypt data
-    PI_RX->>PI_RX: Validate final checksum
-    PI_RX->>PI_RX: Form original image
+    Note over PI_RX: Image Reconstruction
+    PI_RX->>PI_RX: Reorder packets
+    PI_RX->>PI_RX: Reconstruct and decrypt image
+    PI_RX->>PI_RX: Validate final image checksum
 ```
