@@ -10,7 +10,10 @@ Thumbs.db
 
 # --- Editors/IDEs ---
 # Visual Studio
-.vscode/
+!.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
 
 # CLion
 .idea/

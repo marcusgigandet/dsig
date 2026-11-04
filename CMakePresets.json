@@ -2,26 +2,31 @@
   "version": 6,
   "configurePresets": [
     {
-      "name": "esp32-release",
-      "displayName": "ESP32 (release)",
+      "name": "_esp32",
+      "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/esp32-release",
+      "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "DSIG_ESP32": "ON",
         "IDF_TARGET": "esp32",
-        "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/apps/esp32/sdkconfig.defaults.release"
+        "SDKCONFIG": "${sourceDir}/build/${presetName}/sdkconfig"
       }
+    },
+    {
+      "name": "esp32-release",
+      "displayName": "ESP32 (release)",
+      "cacheVariables": {
+        "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/apps/esp32/sdkconfig.defaults.release"
+      },
+      "inherits": "_esp32"
     },
     {
       "name": "esp32-debug",
       "displayName": "ESP32 (debug)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/esp32-debug",
       "cacheVariables": {
-        "DSIG_ESP32": "ON",
-        "IDF_TARGET": "esp32",
         "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/apps/esp32/sdkconfig.defaults.debug"
-      }
+      },
+      "inherits": "_esp32"
     },
     {
       "name": "rpi-release",
@@ -44,6 +49,14 @@
     {
       "name": "esp32-debug",
       "configurePreset": "esp32-debug"
+    },
+    {
+      "name": "rpi-release",
+      "configurePreset": "rpi-release"
+    },
+    {
+      "name": "rpi-debug",
+      "configurePreset": "rpi-debug"
     }
   ]
 }

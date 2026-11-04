@@ -5,6 +5,14 @@
     },
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/dsig,type=bind",
     "workspaceFolder": "/workspaces/dsig",
+    "initializeCommand": [
+        "python3",
+        ".devcontainer/host/usb.py",
+        "start"
+    ],
+    "runArgs": [
+        "--add-host=host.docker.internal:host-gateway"
+    ],
     "containerEnv": {
         "IDF_TARGET": "esp32"
     },
@@ -26,7 +34,13 @@
                 "terminal.integrated.defaultProfile.linux": "bash",
                 "cmake.sourceDirectory": "${workspaceFolder}",
                 "cmake.useCMakePresets": "always",
-                "cmake.configureOnOpen": false
+                "cmake.configureOnOpen": false,
+                "idf.customExtraVars": {
+                    "IDF_PATH": "/opt/esp/idf",
+                    "IDF_TOOLS_PATH": "/opt/esp",
+                    "IDF_PYTHON_ENV_PATH": "/opt/esp/python",
+                    "IDF_TARGET": "esp32"
+                }
             }
         }
     }
