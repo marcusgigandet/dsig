@@ -46,8 +46,6 @@ CheckOptions:
     value: CamelCase
   - key: readability-identifier-naming.FunctionCase
     value: lower_case
-  - key: readability-identifier-naming.FunctionIgnoredRegexp
-    value: ^(Reset_Handler|NMI_Handler|HardFault_Handler|MemManage_Handler|BusFault_Handler|UsageFault_Handler|SecureFault_Handler|SVC_Handler|DebugMon_Handler|PendSV_Handler|SysTick_Handler|R_BSP_WarmStart)$
   - key: readability-identifier-naming.MethodCase
     value: lower_case
   - key: readability-identifier-naming.ParameterCase
