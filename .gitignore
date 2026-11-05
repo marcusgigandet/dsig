@@ -1,33 +1,17 @@
 # --- General ---
 .DS_Store
 Thumbs.db
-*.log
-*.temp
-*.bak
-*.swp
-*.swo
 .cache/
+*.log
 
 # --- Editors/IDEs ---
 # Visual Studio
-!.vscode/
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
+.vscode/
 
 # CLion
 .idea/
 *.iml
 cmake-build-*/
-
-# --- Temporary Files ---
-*.tmp
-*.temp
-*.log
-*.bak
-*.old
-*.pyc
-*.class
 
 # --- Output Folders ---
 bin/
@@ -37,30 +21,6 @@ dist/
 api/
 build/
 
-# --- Package Managers ---
-# Vcpkg
-.vcpkg-root
-vcpkg_installed/
-
-# --- Backup Files ---
-*~
-*.orig
-*.bak
-*.backup
-
 # --- Miscellaneous ---
-*.tags
-*.lint
-*.session
-*.cache
-*.log
 .venv/
-
-# --- Coverage Reports ---
-coverage/
-lcov-report/
-
-# --- Documentation ---
-_build/
-pages/
-pages-local/
+__pycache__/
