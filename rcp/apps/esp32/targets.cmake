@@ -1,5 +1,4 @@
 set(DSIG_FLASH_BAUD 460800 CACHE STRING "ESP32 flashing baud rate")
-set(DSIG_MONITOR_BAUD 115200 CACHE STRING "ESP32 monitor baud rate")
 
 idf_build_get_property(idf_python PYTHON)
 idf_build_get_property(idf_path IDF_PATH)
@@ -33,18 +32,6 @@ foreach (board RANGE 1 2)
 
 	add_custom_target(erase-${board}
 		COMMAND ${esptool_cmd} --port "${port}" --baud "${DSIG_FLASH_BAUD}" erase-flash
-		USES_TERMINAL
-		VERBATIM
-	)
-
-	# Invoke Python directly to avoid IDF 6.1's broken CMake monitor command.
-	add_custom_target(monitor-${board}
-		COMMAND "${idf_python}" -m esp_idf_monitor
-			--port "${port}"
-			--baud "${DSIG_MONITOR_BAUD}"
-			--toolchain-prefix "${_CMAKE_TOOLCHAIN_PREFIX}"
-			--target "${IDF_TARGET}" "$<TARGET_FILE:dsig.elf>"
-		DEPENDS app
 		USES_TERMINAL
 		VERBATIM
 	)
