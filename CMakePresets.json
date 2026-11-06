@@ -16,6 +16,7 @@
       "name": "esp32-release",
       "displayName": "ESP32 (release)",
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
         "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/apps/esp32/sdkconfig.defaults.release"
       },
       "inherits": "_esp32"
@@ -24,6 +25,7 @@
       "name": "esp32-debug",
       "displayName": "ESP32 (debug)",
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
         "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/apps/esp32/sdkconfig.defaults.debug"
       },
       "inherits": "_esp32"
@@ -32,13 +34,19 @@
       "name": "rpi-release",
       "displayName": "Raspberry Pi (release)",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/rpi-release"
+      "binaryDir": "${sourceDir}/build/rpi-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
     },
     {
       "name": "rpi-debug",
       "displayName": "Raspberry Pi (debug)",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/rpi-debug"
+      "binaryDir": "${sourceDir}/build/rpi-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
     }
   ],
   "buildPresets": [

@@ -1,6 +1,4 @@
-"""
-Register the project's RFC2217 client for ESP-IDF tools.
-"""
+"""Register the project's RFC2217 client for ESP-IDF tools."""
 
 import serial
 

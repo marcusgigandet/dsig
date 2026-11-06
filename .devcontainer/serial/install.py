@@ -1,6 +1,4 @@
-"""
-Enable the RFC2217 client for all tools in this Python environment.
-"""
+"""Enable the RFC2217 client for all tools in this Python environment."""
 
 import site
 from pathlib import Path

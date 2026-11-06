@@ -1,5 +1,4 @@
-"""
-Avoid renegotiating remote settings for local timeout changes.
+"""Avoid renegotiating remote settings for local timeout changes.
 
 Without this fix, the commands may take significantly longer to execute.
 """
@@ -8,17 +7,13 @@ from serial.rfc2217 import Serial as RFC2217Serial
 
 
 class Serial(RFC2217Serial):
-    def open(self):
-        """
-        :brief Reset settings to ensure each connection renogotiates its settings.
-        """
+    def open(self) -> None:
+        """Reset settings to ensure each connection renogotiates its settings."""
         self._remote_settings = None
         return super().open()
 
-    def _reconfigure_port(self):
-        """
-        :brief Updates
-        """
+    def _reconfigure_port(self) -> None:    
+        """Updates the serial connection setttings."""    
         
         # Get current settings snapshot
         settings = self.get_settings()
