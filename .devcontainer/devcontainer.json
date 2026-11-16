@@ -1,0 +1,42 @@
+{
+    "name": "DSIG ESP32 (ESP-IDF 6.1)",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/dsig,type=bind",
+    "workspaceFolder": "/workspaces/dsig",
+    "runArgs": [
+        "--add-host=host.docker.internal:host-gateway"
+    ],
+    "containerEnv": {
+        "IDF_TARGET": "esp32"
+    },
+    "mounts": [
+        "source=${localWorkspaceFolderBasename}-esp32-ccache,target=/root/.cache/ccache,type=volume"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cmake-tools",
+                "ms-vscode.cpptools",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "github.vscode-github-actions",
+                "github.vscode-pull-request-github",
+                "ms-vscode.vscode-serial-monitor",
+                "espressif.esp-idf-extension"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "cmake.sourceDirectory": "${workspaceFolder}",
+                "cmake.useCMakePresets": "always",
+                "cmake.configureOnOpen": false,
+                "idf.customExtraVars": {
+                    "IDF_PATH": "/opt/esp/idf",
+                    "IDF_TOOLS_PATH": "/opt/esp",
+                    "IDF_PYTHON_ENV_PATH": "/opt/esp/python",
+                    "IDF_TARGET": "esp32"
+                }
+            }
+        }
+    }
+}
