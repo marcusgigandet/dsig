@@ -1,10 +1,10 @@
 Checks: >-
+  -modernize-use-trailing-return-type
+
   clang-diagnostic-*,
   clang-analyzer-*,
-
   bugprone-*,
   modernize-*,
-  -modernize-use-trailing-return-type
   performance-*,
   portability-*,
   readability-*,
@@ -13,7 +13,7 @@ WarningsAsErrors: >-
   performance-move-const-arg,
   performance-unnecessary-value-param,
   readability-duplicate-include,
-HeaderFilterRegex: '.*\.(h|hpp|c|cppm|cpp)$'
+HeaderFilterRegex: '.*\.(h|hpp|c|cpp)$'
 ExcludeHeaderFilterRegex: '(^|/)vendor(/|/)'
 FormatStyle:     none
 

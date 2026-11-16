@@ -5,11 +5,6 @@
     },
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/dsig,type=bind",
     "workspaceFolder": "/workspaces/dsig",
-    "initializeCommand": [
-        "python3",
-        ".devcontainer/host/usb.py",
-        "start"
-    ],
     "runArgs": [
         "--add-host=host.docker.internal:host-gateway"
     ],

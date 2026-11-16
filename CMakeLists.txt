@@ -4,7 +4,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE BOOL "Export compile_commands.json" F
 
 option(DSIG_ESP32 "Build the ESP32 firmware with ESP-IDF" OFF)
 if (DSIG_ESP32)
-    include("${CMAKE_CURRENT_SOURCE_DIR}/rcp/apps/esp32/CMakeLists.txt")
+    include("${CMAKE_CURRENT_SOURCE_DIR}/rcp/esp32/cmake/project.cmake")
     return() # Uses ESP-IDF to configure
 endif ()
 
@@ -26,8 +26,34 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+#################
+# cmake-tooling #
+#################
+
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/vendor/cmake-tooling/CMakeLists.txt)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vendor/cmake-tooling)
+else ()
+    message(STATUS "cmake-tooling submodule not found, tooling targets are disabled.")
+endif ()
+
+add_cmake_format_target(
+	TARGET dsig
+	FILES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+)
+add_cmake_lint_target(
+	TARGET dsig
+	FILES ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+)
+
+##############
+# Sanitizers #
+##############
+
+option(DSIG_SANITIZERS "Enable ASan/UBSan instrumentation on project targets" OFF)
+
 ##################
 # Subdirectories #
 ##################
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/rcp)
+add_subdirectory(rcp/rcp_core)
+add_subdirectory(rcp/raspberry_pi)

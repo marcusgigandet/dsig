@@ -24,3 +24,4 @@ build/
 # --- Miscellaneous ---
 .venv/
 __pycache__/
+compile_commands.json

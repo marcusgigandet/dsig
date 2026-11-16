@@ -17,7 +17,7 @@
       "displayName": "ESP32 (release)",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/apps/esp32/sdkconfig.defaults.release"
+        "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/esp32/sdkconfig.defaults.release"
       },
       "inherits": "_esp32"
     },
@@ -26,7 +26,7 @@
       "displayName": "ESP32 (debug)",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/apps/esp32/sdkconfig.defaults.debug"
+        "SDKCONFIG_DEFAULTS": "${sourceDir}/rcp/esp32/sdkconfig.defaults.debug"
       },
       "inherits": "_esp32"
     },
